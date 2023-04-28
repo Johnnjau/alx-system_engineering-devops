@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
-#This script will show "Best School" 10 times
-for ((i=0; i<10; i++))
+# This script is displaying "Best School" 10 times
+# set counter to 0
+counter=0
+
+# loop while counter is less than 10
+while [ $counter -lt 10 ]
 do
-	echo $"Best School"
+  # display "Best School"
+  echo "Best School"
+
+  # increment counter
+  ((counter++))
 done
