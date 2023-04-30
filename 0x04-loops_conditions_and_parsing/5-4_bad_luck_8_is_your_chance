@@ -6,7 +6,6 @@
 
 most_curious=8
 bad_luck_num=4
-
 num=1
 
 while (( num <= 10 )); do
