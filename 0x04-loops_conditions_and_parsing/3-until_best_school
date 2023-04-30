@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-
 # set the number of times to display the message
+
 count=10
 
-# loop until count is 0
 until [ $count -eq 0 ]; do
   # display the message
   echo "Best School"
