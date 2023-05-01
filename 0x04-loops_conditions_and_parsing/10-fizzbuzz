@@ -5,17 +5,14 @@
 #   Displays "Buzz" when the number is a multiple of 5.
 #   Otherwise, displays the number.
 
-for ((num=1; num<100; num++))
-do
-    message=""
-    if (( num % 3 == 0 )); then
-        message+="Fizz"
-    fi
-    if (( num % 5 == 0 )); then
-        message+="Buzz"
-    fi
-    if [[ -z "$message" ]]; then
-        message="$num"
-    fi
-    echo "$message"
+for (( i=1; i<=100; i++ )); do
+  if (( i % 3 == 0 && i % 5 == 0 )); then
+    echo "FizzBuzz"
+  elif (( i % 3 == 0 )); then
+    echo "Fizz"
+  elif (( i % 5 == 0 )); then
+    echo "Buzz"
+  else
+    echo "$i"
+  fi
 done
