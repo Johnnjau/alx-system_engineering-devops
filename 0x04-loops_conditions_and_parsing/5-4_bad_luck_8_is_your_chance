@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Loops from 1 to 10 and displays:
+# Loops from 1 to 10 and displays in addition to:
 # "不吉利" (bad luck in Chinese) for the 4th iteration, unless the most curious is 4
 # "发财啦" (good luck in Chinese) for the 8th iteration, unless the most curious is 8
 # "Best School" for all other iterations
