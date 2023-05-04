@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Display only the listening sockets and their details (including PID and program name)
+netstat_output=$(netstat -l --program)
+
+# Remove the first two lines of the netstat output which contains unnecessary header information
+listening_sockets=$(echo "$netstat_output" | awk 'NR>2')
+
+# Print the results
+echo "Listening Sockets:"
