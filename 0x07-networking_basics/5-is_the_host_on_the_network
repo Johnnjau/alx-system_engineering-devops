@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Check if an IP address argument is provided
+if [ $# -eq 0 ]
+then
+  echo "Usage: ping_ip {IP_ADDRESS}"
+else
+  # Ping the IP address 5 times
+  ping_output=$(ping -c 5 "$1")
+
+  # Print the ping results
+  echo "Ping Results for $1:"
+  echo "$ping_output"
+fi
