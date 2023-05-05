@@ -1,1 +1,14 @@
-2
+#!/bin/bash
+
+# Configure localhost
+sudo sed -i 's/^127\.0\.0\.1\s*localhost/127.0.0.2\tlocalhost/' /etc/hosts
+
+# Configure facebook.com
+sudo sed -i 's/^.*facebook\.com/8.8.8.8\tfacebook.com/' /etc/hosts
+
+# Configure Docker DNS resolver
+sudo mkdir -p /etc/docker
+echo '{
+    "dns": ["8.8.8.8"]
+}' | sudo tee /etc/docker/daemon.json > /dev/null
+sudo systemctl restart docker
