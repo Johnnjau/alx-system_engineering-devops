@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#This script prints info subdomains
+
+print_info() {
+    domain="$1"
+    subdomain="$2"
+    answer=$(dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain")
+    echo "$answer"
+}
+
+if [ -z "$2" ]; then
+    for subdomain in "www" "lb-01" "web-01" "web-02"; do
+        print_info "$1" "$subdomain"
+    done
+else
+    print_info "$1" "$2"
+fi
