@@ -11,28 +11,30 @@
 apt-get update
 apt-get install -y nginx
 
-mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo mkdir -p /var/www/html
+sudo touch /var/www/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+sudo touch /var/www/html/404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null
 
-printf %s "server {
+sudo tee /etc/nginx/sites-available/default > /dev/null <<EOF
+server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
+    add_header X-Served-By \$HOSTNAME;
     root   /var/www/html;
     index  index.html index.htm;
 
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 
     error_page 404 /404.html;
     location /404 {
-      root /var/www/html;
-      internal;
+        root /var/www/html;
+        internal;
     }
-}" > /etc/nginx/sites-available/default
+}
+EOF
 
-service nginx restart
+sudo service nginx restart
