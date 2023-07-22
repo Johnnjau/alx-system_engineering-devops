@@ -6,4 +6,4 @@ sed '/listen       80 default_server;/a listen       8080 default_server;' /etc/
 sudo mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 chmod 644 /etc/nginx/nginx.conf
 pkill apache2
-sudo -n service nginx startsudo -n service nginx start
+sudo -n service nginx start
