@@ -1,17 +1,3 @@
 #!/usr/bin/env bash
-
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <username>"
-  exit 1
-fi
-
-username=$1
-
-home_directory=$(getent passwd "$username" | cut -d: -f6)
-
-if [ -z "$home_directory" ]; then
-  echo "User '$username' does not exist or has no HOME directory."
-  exit 1
-fi
-
-sudo -u "$username" whoami
+#takes user argument for whoami command
+sudo -u "$1" whoami
