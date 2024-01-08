@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Display only listening sockets and their associated programs
+# using netstat command
+
+netstat_command="sudo netstat -l --program"
+
+# Execute netstat command and store output in a variable
+netstat_output=$(eval "$netstat_command" 2>/dev/null)
+
+# Count the number of lines in the output
+line_count=$(echo "$netstat_output" | wc -l)
+
+# Print output if there are more than 2 lines (header + at least one listening socket)
+if [ "$line_count" -gt 2 ]; then
+    # Print header
+    printf "%-20s %-20s %s\n" "Proto" "Local Address" "Program Name"
+    # Print listening sockets and their associated programs
+    echo "$netstat_output" | awk '$6 == "LISTEN" { printf("%-20s %-20s %s\n", $1, $4, $7) }'
+fi
+
+# Exit the script
+exit 0
