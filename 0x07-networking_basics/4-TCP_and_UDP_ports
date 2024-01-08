@@ -1,23 +1,17 @@
 #!/bin/bash
 
-# Display only listening sockets and their associated programs
-# using netstat command
+# Use ss to get listening sockets and their details
+ss -tuln | awk 'NR>1 {print $5,$1}' | while read line
+do
+    # Extract IP and port
+    ip=$(echo "$line" | awk '{split($1,a,":"); print a[1]}')
+    port=$(echo "$line" | awk '{split($1,a,":"); print a[2]}')
+    protocol=$(echo "$line" | awk '{print $2}')
 
-netstat_command="sudo netstat -l --program"
-
-# Execute netstat command and store output in a variable
-netstat_output=$(eval "$netstat_command" 2>/dev/null)
-
-# Count the number of lines in the output
-line_count=$(echo "$netstat_output" | wc -l)
-
-# Print output if there are more than 2 lines (header + at least one listening socket)
-if [ "$line_count" -gt 2 ]; then
-    # Print header
-    printf "%-20s %-20s %s\n" "Proto" "Local Address" "Program Name"
-    # Print listening sockets and their associated programs
-    echo "$netstat_output" | awk '$6 == "LISTEN" { printf("%-20s %-20s %s\n", $1, $4, $7) }'
-fi
-
-# Exit the script
-exit 0
+    # Get PID and program name using ss and awk
+    pid=$(ss -tuln | awk -v port="$port" -v protocol="$protocol" '$0~port && $0~protocol && NR>1 {print $NF}' | cut -d"," -f1)
+    if [ -n "$pid" ] && [ "$pid" != "0.0.0.0:*" ]; then
+        program=$(ps -p $pid -o comm=)
+        echo "Port $port ($protocol) is being listened by PID $pid - Program: $program"
+    fi
+done
