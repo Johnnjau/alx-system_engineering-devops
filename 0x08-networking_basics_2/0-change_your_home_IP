@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Check if the script is run as root
 if [ "$EUID" -ne 0 ]; then
@@ -19,7 +19,7 @@ if grep -q "$LOCALHOST_ENTRY" /etc/hosts && grep -q "$FACEBOOK_ENTRY" /etc/hosts
 else
   # Add or update the entries in /etc/hosts
   sed -i "/^127.0.0.1[[:space:]]\+localhost/ s/$/ 127.0.0.2/" /etc/hosts
-  echo "8.8.8.8 facebook.com" >> /etc/hosts
+  sed -i "s/^.*facebook\.com.*/$FACEBOOK_ENTRY/" /etc/hosts
 
   echo "Host configurations updated."
 fi
