@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Listens on port 98 on localhost.
-
-read -r line < <(nc -l localhost 98)
-echo "$line"
