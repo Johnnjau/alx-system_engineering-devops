@@ -1,6 +1,18 @@
-#/usr/bin/env bash
-# configures an ubuntu server
-cp /etc/hosts ~/hosts.new
-echo "127.0.0.2		localhost" > ~/hosts.new
-echo "8.8.8.8		facebool.com" >> ~/hosts.new
-cp -f ~/hosts.new /etc/hosts
+#!/bin/bash
+
+# Check if the script is run as root
+if [ "$EUID" -ne 0 ]
+then
+  echo "Please run this script with sudo."
+  exit
+fi
+
+# Your IP address change commands go here
+
+# For example, to change the IP address of eth0:
+# sudo ifconfig eth0 <new_IP_address>
+
+# Be sure to replace <new_IP_address> with your desired IP address
+
+# If you want to restart the networking service after changing the IP address:
+# sudo service networking restart

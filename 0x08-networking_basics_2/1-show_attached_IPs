@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Check if the ip command is available
+if command -v ip &> /dev/null
+then
+    # Display IP information using ip
+    ip addr show
+else
+    echo "Error: ip command not found. Please install iproute2."
+fi
