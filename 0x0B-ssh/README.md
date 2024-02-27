@@ -1,1 +1,1 @@
-The Second Project where of a server.
+The Second part of a server.
