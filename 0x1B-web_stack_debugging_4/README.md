@@ -1,1 +1,0 @@
-This was a serries of web stack debugging projects. I was given broken webstacks in isolated containers, and tasked with fixing the web stack to a working state. I wrote a script automating the commands necessary to fix the web stack.
