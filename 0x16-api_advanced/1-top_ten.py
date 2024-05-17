@@ -1,21 +1,23 @@
 #!/usr/bin/python3
-"""Function to print hot posts on a given Reddit subreddit."""
+"""
+function queries for the first top ten posts of a subreddit
+"""
 import requests
 
 
 def top_ten(subreddit):
-    """Print the titles of the 10 hottest posts on a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    """
+    Returns the top 10 subreddit posts
+    """
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+        "User-Agent": "linux:myserver:v5.11.0 (by /u/linda)"
     }
-    params = {
-        "limit": 10
-    }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
-        print("None")
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code != 200:
+        print(None)
         return
-    results = response.json().get("data")
-    [print(c.get("data").get("title")) for c in results.get("children")]
+    data = response.json().get("data")
+    children = data.get("children")
+    for i in range(10):
+        print(children[i].get("data").get("title"))
